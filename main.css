@@ -39,9 +39,14 @@ header {
   left: 0;
   right: 0;
 }
-header img {
+
+.header-logo {
+  max-width: 159px;
+  max-height: 23px;
+  width: 100%;
+  height: auto;
   position: relative;
-  top: 3px;
+  top: 4px;
 }
 
 hr {
@@ -218,8 +223,10 @@ main > h2 {
   min-width: 53%;
 }
 .banana-live__cta > img {
-  max-width: 100%;
-  padding-right: 12px;
+  max-width: 75%;
+  margin: 16px 12px 0;
+  height: auto;
+  width: 100%;
 }
 .banana-live__content {
   display: flex;
@@ -337,6 +344,9 @@ iframe {
   }
   iframe {
     margin-bottom: 0;
+  }
+  .banana-live__cta > img {
+    max-width: 60%;
   }
 }
 
