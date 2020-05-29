@@ -218,13 +218,8 @@ main > h2 {
   min-width: 53%;
 }
 .banana-live__cta > img {
-  height: 1.45em;
-}
-.banana-live__cta > strong {
-  position: relative;
-  top: -4px;
-  display: inline-block;
-  left: -2px;
+  max-width: 100%;
+  padding-right: 12px;
 }
 .banana-live__content {
   display: flex;
