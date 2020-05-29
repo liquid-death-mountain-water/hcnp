@@ -2,8 +2,6 @@ const PREVIEW_DURATION_MS = 4 * 1000;
 const PlayerPreview = function (targetEl, props) {
   props = props || {};
   let hasHover = false;
-
-
   // Get thumbnails
   const defaultThumb = `https://img.youtube.com/vi/${props.videoId}/hqdefault.jpg`
   const thumbUrls = [
@@ -15,11 +13,15 @@ const PlayerPreview = function (targetEl, props) {
   let ticker;
 
   const preloadThumbs = async () => {
-    return new Promise((res)=>{
-      thumbUrls.forEach(url => {
-        document.createElement('img').src = url;
-      });
-      res();
+    for (const idx in thumbUrls) {
+      await load(thumbUrls[idx]);
+    }
+  }
+  const load = async (url) => {
+    return new Promise((res) => {
+      const img = document.createElement('img');
+      img.onload = res;
+      img.src = url;
     });
   }
 
@@ -27,7 +29,7 @@ const PlayerPreview = function (targetEl, props) {
     evt.preventDefault();
     evt.stopPropagation();
 
-    if(!hasHover){ return; }
+    if (!hasHover) { return; }
     createYTplayer(props.videoId);
   };
 
@@ -35,19 +37,19 @@ const PlayerPreview = function (targetEl, props) {
     hasHover = true;
     targetEl.classList.add('has-hover');
     idx = -1;
-    if (ticker){
+    if (ticker) {
       clearInterval(ticker);
       clearTimeout(ticker);
       ticker = null;
     }
-    ticker = setTimeout(()=>{
+    ticker = setTimeout(() => {
       nextThumbnail();
       ticker = setInterval(nextThumbnail, PREVIEW_DURATION_MS / (thumbUrls.length));
     }, 100);
   };
   const nextThumbnail = () => {
     idx += 1;
-    if(idx > thumbUrls.length - 1){
+    if (idx > thumbUrls.length - 1) {
       clearInterval(ticker);
       ticker = null;
       return;
@@ -63,7 +65,6 @@ const PlayerPreview = function (targetEl, props) {
     clearInterval(ticker);
     ticker = null;
     setThumbnail(defaultThumb);
-    console.log('out');
   };
 
   setThumbnail(defaultThumb);
@@ -71,18 +72,20 @@ const PlayerPreview = function (targetEl, props) {
   targetEl.addEventListener('mouseover', onMouseEnter)
   targetEl.addEventListener('mouseleave', onMouseLeave)
 
-  preloadThumbs();
 
+  window.addEventListener('load', () => {
+    setTimeout(() => { preloadThumbs(); }, (props.index || 0) * 250);
+  })
   return this;
 }
 
 
-Array.from(document.querySelectorAll('.preview')).forEach(el => {
+Array.from(document.querySelectorAll('.preview')).forEach((el, index) => {
   const props = Object.assign({}, el.dataset);
   if (!props.videoId) {
     return;
   }
-  new PlayerPreview(el, props);
+  new PlayerPreview(el, { ...props, index });
 });
 
 
@@ -96,7 +99,7 @@ function createYTplayer(id) {
   const el = document.createElement('div');
   el.classList.add('yt-modal');
   el.innerHTML = `
-    <iframe src="https://www.youtube.com/embed/${id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/${id}?rel=0&showinfo=0&autoplay=1&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <a href="#" id="mod-close">Close</a>
   `;
   document.body.appendChild(overlay);
