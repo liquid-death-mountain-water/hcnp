@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="159" height="23" viewBox="0 0 159 23">
+    <g fill="none" fill-rule="evenodd">
+        <text fill="#FFF" font-family="Arial-BoldMT, Arial" font-size="16" font-weight="bold">
+            <tspan x="0" y="17">Hardcore</tspan>
+        </text>
+        <rect width="85" height="23" x="74" fill="#FF9600" rx="2"/>
+        <text fill="#000" font-family="Arial-BoldMT, Arial" font-size="16" font-weight="bold">
+            <tspan x="77" y="17">NormPorn</tspan>
+        </text>
+    </g>
+</svg>
