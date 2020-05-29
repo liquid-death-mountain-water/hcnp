@@ -29,11 +29,15 @@ const PlayerPreview = function (targetEl, props) {
     evt.preventDefault();
     evt.stopPropagation();
 
-    if (!hasHover) { return; }
+    if (!hasHover) {
+      hasHover = true;
+      return;
+    }
     createYTplayer(props.videoId);
   };
 
   const onMouseEnter = () => {
+    blurAllOthers();
     hasHover = true;
     targetEl.classList.add('has-hover');
     idx = -1;
@@ -52,6 +56,9 @@ const PlayerPreview = function (targetEl, props) {
     if (idx > thumbUrls.length - 1) {
       clearInterval(ticker);
       ticker = null;
+      setTimeout(()=>{
+        onMouseLeave();
+      }, 2000);
       return;
     }
     setThumbnail(thumbUrls[idx]);
@@ -67,26 +74,45 @@ const PlayerPreview = function (targetEl, props) {
     setThumbnail(defaultThumb);
   };
 
+  const blurAllOthers = () => {
+    previews.forEach(x => {
+      if(x.id !== props.id){
+        x.blur();
+      }
+    });
+  }
+
   setThumbnail(defaultThumb);
   targetEl.addEventListener('click', onClick)
+  targetEl.addEventListener('touchstart', (evt)=>{
+    setTimeout(()=>{
+      onMouseEnter(evt);
+    }, 500);
+  })
   targetEl.addEventListener('mouseover', onMouseEnter)
   targetEl.addEventListener('mouseleave', onMouseLeave)
 
-
+  // Preload thumbnails
   window.addEventListener('load', () => {
     setTimeout(() => { preloadThumbs(); }, (props.index || 0) * 250);
   })
-  return this;
+  return {
+    id: props.id,
+    blur: ()=>{ onMouseLeave(); },
+  };
 }
 
 
-Array.from(document.querySelectorAll('.preview')).forEach((el, index) => {
-  const props = Object.assign({}, el.dataset);
+const previews = Array.from(document.querySelectorAll('.preview')).map((el, index) => {
+  const props = Object.assign({
+    index,
+    id: Math.random().toString(36).slice(2),
+  }, el.dataset);
   if (!props.videoId) {
-    return;
+    return null;
   }
-  new PlayerPreview(el, { ...props, index });
-});
+  return new PlayerPreview(el, props);
+}).map(x => x);
 
 
 
