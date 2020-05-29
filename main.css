@@ -54,17 +54,17 @@ hr {
 
 
 /* Ad banner */
-.ad.ad-banner {
+.banana.banana-banner {
   margin-top: 16px;
 }
-.ad.ad-banner img {
+.banana.banana-banner img {
   display: block;
   height: auto;
   margin: 0 auto;
   /* max-width: 450px; */
   width: 100%;
 }
-.ad.ad-banner a {
+.banana.banana-banner a {
   display: block;
   min-height: 17px;
   font-size: 16px;
@@ -74,17 +74,17 @@ hr {
   margin: 5px 0;
   text-decoration: none;
 }
-.ad.ad-banner a:hover,
-.ad.ad-banner a:focus {
+.banana.banana-banner a:hover,
+.banana.banana-banner a:focus {
   text-decoration: underline;
 }
 
-.ads-by {
+.bananas-by {
   display: block;
   margin: 0 auto 16px;
   text-align: center;
 }
-.ads-by span {
+.bananas-by span {
   display: inline-block;
   color: #4D4D4D;
   background: #202020;
@@ -211,29 +211,29 @@ main > h2 {
   margin: 2em auto 1em;
   width: calc(100% - 24px);
 }
-.ad-live__cta {
+.banana-live__cta {
   line-height: 1.45em;
   text-align: center;
   font-size: 13px;
   min-width: 53%;
 }
-.ad-live__cta > img {
+.banana-live__cta > img {
   height: 1.45em;
 }
-.ad-live__cta > strong {
+.banana-live__cta > strong {
   position: relative;
   top: -4px;
   display: inline-block;
   left: -2px;
 }
-.ad-live__content {
+.banana-live__content {
   display: flex;
   margin-bottom: 8px;
 }
-.ad-live__content > div {
+.banana-live__content > div {
   flex-grow: 1;
 }
-.ad-live__preview {
+.banana-live__preview {
   display: block;
   height: 0;
   padding-bottom: 30%;
@@ -242,7 +242,7 @@ main > h2 {
   background-position: center;
   background-size: cover;
 }
-.ad-live__preview-label {
+.banana-live__preview-label {
   position: absolute;
   bottom: 0;
   padding: 0.5em;
@@ -254,7 +254,7 @@ main > h2 {
   text-align: left;
 }
 
-.ad-live__preview-live {
+.banana-live__preview-live {
   position: absolute;
   left: 4px;
   top: 4px;
@@ -265,7 +265,7 @@ main > h2 {
   border-radius: 4px;
   font-size: 12px;
 }
-.ad-live__preview-live::before {
+.banana-live__preview-live::before {
   content: '';
   display: inline-block;
   height: 9px;
@@ -319,7 +319,7 @@ iframe {
 
 /* Larger than mobile screen */
 @media (min-width: 60rem) {
-  .ad-live__cta {
+  .banana-live__cta {
     padding-top: 3em;
   }
   .video-list {
