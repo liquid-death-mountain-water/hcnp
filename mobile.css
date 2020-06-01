@@ -66,15 +66,15 @@
   }
 
   .hero-video {
-    background-image: url("assets/mobile-video-poster.jpg");
+    background-image: url("/assets/mobile-video-poster.jpg");
     height: 282px;
     background-size: cover;
     display: flex;
-    align-items: end;
+    align-items: flex-end;
   }
 
   #comp {
-    background-image: url("assets/mobile-comp.png");
+    background-image: url("/assets/mobile-comp.png");
     background-size: 100% auto;
     background-repeat: no-repeat;
     background-position: center top;
@@ -198,7 +198,7 @@
   }
 
   .quad > figure:nth-child(2) {
-    background-image: url("assets/demon-stacy.jpg");
+    background-image: url("/assets/demon-stacy.jpg");
     background-size: 100% auto;
     background-size: cover;
     background-position: center;
@@ -206,7 +206,7 @@
   }
   .quad > figure:nth-child(3) {
     background-color: #000;
-    background-image: url("assets/dtp.png");
+    background-image: url("/assets/dtp.png");
     background-size: 100% auto;
     background-size: cover;
     background-position: center;
