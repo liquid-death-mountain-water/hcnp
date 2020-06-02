@@ -27,6 +27,7 @@ body {
 }
 
 header {
+  overflow: hidden;
   align-items: center;
   background: #181818;
   display: flex;
