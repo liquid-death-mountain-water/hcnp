@@ -64,6 +64,7 @@ const attachToMouseThing = (el) => {
 if ('ontouchmove' in window) {
   document.body.appendChild(thumbHolder);
   thumbHolder.style.display = 'none';
+  thumbHolder.style.position = 'fixed';
   const seekbarArea = document.body.querySelector('.vjs-progress-control.vjs-control');
   const { top } = seekbarArea.getBoundingClientRect();
   thumbHolder.style.top = `${top}px`;
