@@ -60,15 +60,45 @@ const attachToMouseThing = (el) => {
     setTimeout(() => { attachToMouseThing(el); }, 100);
   }
 }
-attachToMouseThing(thumbHolder)
+
+if ('ontouchmove' in window) {
+  document.body.appendChild(thumbHolder);
+  thumbHolder.style.display = 'none';
+  const seekbarArea = document.body.querySelector('.vjs-progress-control.vjs-control');
+  const { top } = seekbarArea.getBoundingClientRect();
+  thumbHolder.style.top = `${top}px`;
+  thumbHolder.style.transform = 'scale(0.5) translateY(50%)';
+
+  const onTouch = (evt: TouchEvent) => {
+    const { width, left, top } = seekbarArea.getBoundingClientRect();
+    const touch = evt.touches[0];
+    thumbHolder.style.display = 'block';
+    thumbHolder.style.top = `${top + 15 - 160}px`;
+    thumbHolder.style.left = `${touch.pageX - 120}px`;
+    fill.setAttribute('width', `${((touch.pageX - left) / (width)) * 100}%`);
+    update();
+  };
+
+  seekbarArea.addEventListener('touchstart', onTouch);
+  seekbarArea.addEventListener('touchmove', onTouch);
+  document.body.addEventListener('touchend', () => {
+    setTimeout(()=>{
+      thumbHolder.style.display = 'none';
+    },1)
+  });
+} else {
+  attachToMouseThing(thumbHolder)
+}
+
 // document.body.querySelector('.vjs-mouse-display').appendChild(thumbHolder);
 
 const timerElement = document.body.querySelector('.vjs-time-tooltip');
 const getCurrentTime = () => {
-  if(timerElement){
+  if (timerElement) {
     return getStringAsSeconds(timerElement.innerHTML);
   } else {
-    return 0;
+    const backupElement = document.body.querySelector('.video-js video') as HTMLVideoElement;
+    return backupElement.currentTime;
   }
 }
 const update = () => {
@@ -123,7 +153,7 @@ const obs = new MutationObserver((evt: MutationRecord[]) => {
 
 obs.observe(progress, { attributes: true, childList: false, subtree: false });
 
-if((<any>window).HCNP){
+if ((<any>window).HCNP) {
   var list = document.querySelector('.video-list');
   for (var i = list.children.length; i >= 0; i--) {
     list.appendChild(list.children[Math.random() * i | 0]);
