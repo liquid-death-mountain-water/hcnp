@@ -122,7 +122,7 @@ main > h2 {
 }
 .details .info {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   color: #808080;
   justify-content: space-between;
   min-height: 16px;
