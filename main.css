@@ -243,6 +243,7 @@ main > h2 {
   width: 49%;
   background-position: center;
   background-size: cover;
+  align-self: center;
 }
 .banana-live__preview-label {
   position: absolute;
