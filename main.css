@@ -155,7 +155,7 @@ main > h2 {
 }
 
 .preview.has-hover::before {
-  transition: 4s width linear, 0.1s opacity ease;
+  transition: 9s width linear, 0.1s opacity ease;
   opacity: 1;
   width: 100%;
 }

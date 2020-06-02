@@ -10,7 +10,7 @@ if (!sessionStorage.getItem('hcnp')) {
 
 // https://ld-hcnp.s3.us-east-2.amazonaws.com/01/01_thumbs-3.jpg
 
-const PREVIEW_DURATION_MS = 4 * 1000;
+const PREVIEW_DURATION_MS = 6 * 1500;
 const PlayerPreview = function (targetEl, props) {
   props = props || {};
   let hasHover = false;
