@@ -67,6 +67,7 @@ hr {
   height: auto;
   margin: 0 auto;
   margin-bottom: 5px;
+  max-width: 450px;
   width: 100%;
 }
 .banana.banana-banner a {
