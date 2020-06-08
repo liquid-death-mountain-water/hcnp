@@ -115,6 +115,12 @@ main > h2 {
   color: #fff;
 }
 
+main > h2 > span {
+  display: inline-block;
+  line-height: 1.75em;
+  max-width: 338px;
+}
+
 .details {
   display: flex;
   flex-direction: column;
