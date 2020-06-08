@@ -118,7 +118,7 @@ main > h2 {
 main > h2 > span {
   display: inline-block;
   line-height: 1.75em;
-  max-width: 340px;
+  max-width: 345px;
 }
 
 .details {
