@@ -1,57 +1,38 @@
-Webpack 4 + TypeScript starter
-------------------------------
+## dev
 
-[![Build Status](https://travis-ci.org/juristr/webpack-typescript-starter.svg?branch=master)](https://travis-ci.org/juristr/webpack-typescript-starter)
+`python -m http.server 8888` -> open `localhost:8888`
 
-This is by far no sophisticated starter or whatever. The goal is to get the simplest possible setup to get you started with Webpack 4 and TypeScript. You can then start from here and add further stuff you need, such as SASS compilation, add framework specific stuff etc.
+## video/ffmpeg commands:
 
-Also check out the official Webpack 4 docs for a proper TypeScript setup: https://webpack.js.org/guides/typescript/
+Generate list of thumbnails
+`ffmpeg -i 03_CollegeAction.mp4 -vf fps=1,scale=240:-1 -vsync vfr -f image2 ./output/03/thumbs/%04d_thumb.jpg`
+Combine them into 8x4 tiled images
+`montage ./output/03/thumbs/*.jpg -geometry +0+0 -tile 8x4 -quality 25 ./output/03/03_thumbs.jpg`
+Create 720p file
+`ffmpeg -i 03_CollegeAction.mp4 -vf scale=-1:720 -c:v libx264 -crf 18 -preset veryslow -c:a copy ./output/03/03_CollegeAction_720.mp4`
+Create 480p file
+`ffmpeg -i 03_CollegeAction.mp4 -vf scale=854:480 -c:v libx264 -crf 18 -preset veryslow -c:a copy ./output/03/03_CollegeAction_480.mp4`
+Create 360p file
+`ffmpeg -i 03_CollegeAction.mp4 -vf scale=-1:360 -c:v libx264 -crf 18 -preset veryslow -c:a copy ./output/03/03_CollegeAction_360.mp4`
+Compress the original 1080p file
+`ffmpeg -i 03_CollegeAction.mp4 -vcodec h264 -acodec aac 03_CollegeAction_compressed.mp4`
+Compress the 720p file
+`ffmpeg -i ./output/03/03_CollegeAction_720.mp4 -vcodec h264 -acodec aac ./output/03/03_CollegeAction_720_compressed.mp4`
+Compress the 480p file
+`ffmpeg -i ./output/03/03_CollegeAction_480.mp4 -vcodec h264 -acodec aac ./output/03/03_CollegeAction_480_compressed.mp4`
+Compress the 360p file
+`ffmpeg -i ./output/03/03_CollegeAction_360.mp4 -vcodec h264 -acodec aac ./output/03/03_CollegeAction_360_compressed.mp4`
 
-_Note, this is still a WIP. Contributions/suggestions are welcome :smiley:_
-
-## Features
-
-- [x] Webpack 4
-- [x] TypeScript 2 compilation
-- [x] ts-lint
-- [x] Webpack Development Server
-- [x] Karma and Jasmine test execution
-
-## How to use
-
-Just clone it and get going.
-
+All together:
 ```
-# --depth 1 removes all but one .git commit history
-$ git clone --depth=1 https://github.com/juristr/webpack-typescript-starter.git <your-project-name>
-
-# change directory to your project
-cd  <your-project-name>
-
-# Maybe remove the `.git` directory and start with a fresh one.
-
-# install all dependencies.
-$ npm i
-
-# Start developing and serve your app:
-npm start
-
-# Build your app without minification: 
-npm run build
-
-# Build your app with minification: 
-npm run build.all
-
-# run unit tests:
-npm run test
+ffmpeg -i 03_CollegeAction.mp4 -vf fps=1,scale=240:-1 -vsync vfr -f image2 ./output/03/thumbs/%04d_thumb.jpg &&
+montage ./output/03/thumbs/*.jpg -geometry +0+0 -tile 8x4 -quality 25 ./output/03/03_thumbs.jpg &&
+ffmpeg -i 03_CollegeAction.mp4 -vf scale=-1:720 -c:v libx264 -crf 18 -preset veryslow -c:a copy ./output/03/03_CollegeAction_720.mp4 &&
+ffmpeg -i 03_CollegeAction.mp4 -vf scale=854:480 -c:v libx264 -crf 18 -preset veryslow -c:a copy ./output/03/03_CollegeAction_480.mp4 &&
+ffmpeg -i 03_CollegeAction.mp4 -vf scale=-1:360 -c:v libx264 -crf 18 -preset veryslow -c:a copy ./output/03/03_CollegeAction_360.mp4 &&
+ffmpeg -i 03_CollegeAction.mp4 -vcodec h264 -acodec aac 03_CollegeAction_compressed.mp4 &&
+ffmpeg -i ./output/03/03_CollegeAction_720.mp4 -vcodec h264 -acodec aac ./output/03/03_CollegeAction_720_compressed.mp4 &&
+ffmpeg -i ./output/03/03_CollegeAction_480.mp4 -vcodec h264 -acodec aac ./output/03/03_CollegeAction_480_compressed.mp4 &&
+ffmpeg -i ./output/03/03_CollegeAction_360.mp4 -vcodec h264 -acodec aac ./output/03/03_CollegeAction_360_compressed.mp4 &&
+echo "DONE"
 ```
-## Contributions
-
-Of course! Open an issue and let's discuss :smiley:.
-
-## Links and other useful stuff
-
-Similar projects that could be a point of inspiration:
-
-- [krasimir/webpack-library-starter](https://github.com/krasimir/webpack-library-starter)
-

@@ -62,11 +62,11 @@ hr {
 .banana.banana-banner {
   margin-top: 16px;
 }
-.banana.banana-banner img {
+.banana.banana-banner video {
   display: block;
   height: auto;
   margin: 0 auto;
-  /* max-width: 450px; */
+  margin-bottom: 5px;
   width: 100%;
 }
 .banana.banana-banner a {
