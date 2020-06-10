@@ -170,6 +170,9 @@ main > h2 > span {
 .percent.active path:nth-child(2) {
   fill: #fd83fc;
 }
+.percent.active {
+  color: #fd83fc;
+}
 
 .likes .percent:not(.inactive):hover,
 .likes .percent:not(.inactive):focus,
