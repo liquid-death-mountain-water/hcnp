@@ -497,3 +497,7 @@ iframe {
 .video-js .vjs-tech {
   outline: none !important;
 }
+
+.percent {
+  display: none !important;
+}
