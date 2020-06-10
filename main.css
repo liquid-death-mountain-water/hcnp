@@ -142,7 +142,52 @@ main > h2 > span {
 }
 
 .likes {
-  display: none !important;
+  /* display: none; */
+  opacity: 0;
+  transition: 0.5s opacity ease;
+}
+
+.likes .percent {
+  cursor: pointer;
+}
+
+.likes .percent.active {
+  cursor: auto;
+}
+.likes .percent.inactive {
+  cursor: auto !important;
+}
+
+.percent svg {
+  opacity: 0.5;
+  position: relative;
+  top: 2px;
+  left: -2px;
+}
+.percent.active svg {
+  opacity: 1;
+}
+.percent.active path:nth-child(2) {
+  fill: #fd83fc;
+}
+
+.likes .percent:not(.inactive):hover,
+.likes .percent:not(.inactive):focus,
+.likes .percent:not(.inactive).active {
+  color: #fd83fc;
+}
+
+
+.likes .percent:not(.inactive):hover svg,
+.likes .percent:not(.inactive):focus svg,
+.likes .percent:not(.inactive).active svg {
+  opacity: 1;
+}
+
+.likes .percent:not(.inactive):hover path:nth-child(2),
+.likes .percent:not(.inactive):focus path:nth-child(2),
+.likes .percent:not(.inactive).active path:nth-child(2) {
+  fill: #fd83fc;
 }
 
 .details a {
@@ -206,7 +251,7 @@ main > h2 > span {
 .percent {
   position: relative;
   display: inline-block;
-  margin-left: 40px;
+  margin-left: 20px;
 }
 .percent img {
   display: block;

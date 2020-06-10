@@ -1,14 +1,123 @@
-// if (!sessionStorage.getItem('hcnp')) {
-//   document.body.style.display = 'none';
-//   if (prompt("password") !== 'hardcore') {
-//     window.location.href = 'https://liquiddeath.com/'
-//   } else {
-//     sessionStorage.setItem('hcnp', '1');
-//     document.body.style.display = 'block';
-//   }
-// }
+let hasFetched = false;
+let counts = {};
 
-// https://ld-hcnp.s3.us-east-2.amazonaws.com/01/01_thumbs-3.jpg
+const pubSub = (function(){
+  let listeners = [];
+  return {
+    bind: (cb)=>{ listeners.push(cb) },
+    trigger: () => { listeners.forEach(x => x()) }
+  }
+})();
+
+const LikeViews = function (targetEl, { slug }) {
+  // const api = `https://ld-hcnp-stats.gigalixirapp.com/api/${slug}`;
+  const api = `//localhost:4000/api`;
+
+  const viewText = targetEl.querySelector('span');
+  const likeText = targetEl.querySelector('span.percent');
+
+  const windowSlug = ()=>window.location.href.split('/')[3];
+
+
+  const getCounts = () => {
+    if(hasFetched){ return; }
+    hasFetched = true;
+
+    fetch(`${api}/`)
+      .then(x => x.json())
+      .then(({ data }) => {
+        let item;
+        for(let i = 0; i < data.length; i++){
+          item = data[i];
+          counts[item.slug] = {
+            likes: item.likes,
+            views: item.views,
+          };
+        }
+        pubSub.trigger();
+      });
+  }
+
+  const updateCounts = () => {
+    const likeCount = counts[slug].likes;
+    const viewCount = counts[slug].views;
+
+    let percent = Math.round((likeCount / (viewCount || 1)) * 100);
+    updateLikeText(percent);
+    updateViewText(viewCount);
+
+    targetEl.style.display = 'block';
+    targetEl.style.opacity = 1;
+  }
+
+  const updateLikeText = (percent) => {
+    likeText.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><g fill="none" fill-rule="evenodd"><path d="M0 0h16v16H0z"/><path fill="#FFF" fill-rule="nonzero" d="M1 14h2V6H1v8zm14-7l-1-2h-4V2 1H9L5 5v8l1 1h6l1-1 2-5V7z"/></g></svg> ${percent}%`;
+  };
+  const updateViewText = (views) => {
+    viewText.innerHTML = `${views} views`
+  };
+
+  const registerView = () => {
+    const key = `ld-${slug}-v`
+    if(sessionStorage.getItem(key) || localStorage.getItem(key)){
+      return;
+    }
+    sessionStorage.setItem(key, 'true');
+    localStorage.setItem(key, 'true');
+
+    fetch(`${api}/${slug}/view/`, { method: 'PUT' })
+      .then(x => x.json())
+      .then(({ data: { likes, views }}) => {
+        counts[slug] = {
+          likes,
+          views,
+        };
+        updateCounts();
+      });
+  }
+  const registerLike = () => {
+    const key = `ld-${slug}-l`
+    if(sessionStorage.getItem(key) || localStorage.getItem(key)){
+      return;
+    }
+    sessionStorage.setItem(key, 'true');
+    localStorage.setItem(key, 'true');
+
+    fetch(`${api}/${slug}/like/`, { method: 'PUT' })
+      .then(x => x.json())
+      .then(({ data: { likes, views }}) => {
+        counts[slug] = {
+          likes,
+          views,
+        };
+        updateCounts();
+      });
+  }
+
+
+  if(windowSlug() === slug){
+    likeText.addEventListener('click', (evt)=>{
+      registerLike();
+      likeText.classList.add('active');
+    });
+  } else {
+    likeText.classList.add('inactive');
+  }
+
+  if(windowSlug() === slug){
+    registerView();
+  }
+
+  const key = `ld-${slug}-l`;
+  if(sessionStorage.getItem(key) || localStorage.getItem(key)){
+    likeText.classList.add('active');
+  }
+
+  pubSub.bind(updateCounts);
+  getCounts();
+}
+
+
 
 const PREVIEW_DURATION_MS = 6 * 1000;
 const PlayerPreview = function (targetEl, props) {
@@ -128,5 +237,16 @@ const previews = Array.from(document.querySelectorAll('.preview')).map((el, inde
     id: Math.random().toString(36).slice(2),
   }, el.dataset);
   return new PlayerPreview(el, props);
+}).map(x => x);
+
+const likeViews = Array.from(document.querySelectorAll('.likes')).map(el => {
+  let slug;
+  try {
+    slug = el.closest('.details').querySelector('a').href.split('/')[3];
+  }catch(err){
+    slug = window.location.href.split('/')[3];
+  }
+
+  return new LikeViews(el, { slug });
 }).map(x => x);
 
