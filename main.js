@@ -45,7 +45,7 @@ const LikeViews = function (targetEl, { slug }) {
     updateLikeText(likePercentage);
     updateViewText(viewCount);
 
-    targetEl.style.display = 'block';
+    targetEl.style.display = 'flex';
     targetEl.style.opacity = 1;
   }
 
@@ -239,11 +239,14 @@ const previews = Array.from(document.querySelectorAll('.preview')).map((el, inde
 }).map(x => x);
 
 const likeViews = Array.from(document.querySelectorAll('.likes')).map(el => {
-  let slug;
-  try {
-    slug = el.closest('.details').querySelector('a').href.split('/')[3];
-  }catch(err){
-    slug = window.location.href.split('/')[3];
+  let slug = window.location.href.split('/')[3];
+
+  if(!slug){
+    try {
+      slug = el.closest('.details').querySelector('a:not(.share)').href.split('/')[3];
+    }catch(err){
+      return;
+    }
   }
 
   return new LikeViews(el, { slug });

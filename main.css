@@ -145,6 +145,8 @@ main > h2 > span {
   /* display: none; */
   opacity: 0;
   transition: 0.5s opacity ease;
+  align-items: baseline;
+  margin-top: -0.25em;
 }
 
 .likes .percent {
@@ -251,10 +253,14 @@ main > h2 > span {
   margin: 0 auto;
 }
 
+.likes span {
+  margin-right: 20px;
+  margin-bottom: 12px;
+}
+
 .percent {
   position: relative;
   display: inline-block;
-  margin-left: 20px;
 }
 .percent img {
   display: block;
@@ -496,4 +502,47 @@ iframe {
 
 .video-js .vjs-tech {
   outline: none !important;
+}
+
+.share {
+  display: inline-block !important;
+}
+.share a {
+  min-height: 0 !important;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+.share.twitter svg {
+  height: 2em;
+  width: auto;
+  margin: -0.5em;
+}
+
+.share.fb svg {
+  width: auto;
+  height: 1.2em;
+  position: relative;
+  top: 1px;
+}
+
+.share.twitter {
+  margin-right: 0 !important;
+}
+
+.share svg {
+  height: 1em;
+  width: 1em;
+}
+
+.spacer {
+  display: inline-block;
+  flex-grow: 1;
+  margin: 0 !important;
+}
+
+.share:hover svg path,
+.share:focus svg path {
+  fill: #fd83fc !important;
 }
