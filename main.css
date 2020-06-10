@@ -141,6 +141,10 @@ main > h2 > span {
   font-size: 14px;
 }
 
+.likes {
+  display: none !important;
+}
+
 .details a {
   display: block;
   width: 100%;
