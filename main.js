@@ -10,8 +10,8 @@ const pubSub = (function(){
 })();
 
 const LikeViews = function (targetEl, { slug }) {
-  // const api = `https://ld-hcnp-stats.gigalixirapp.com/api/${slug}`;
-  const api = `//localhost:4000/api`;
+  const api = `https://ld-hcnp-stats.gigalixirapp.com/api`;
+  // const api = `//localhost:4000/api`;
 
   const viewText = targetEl.querySelector('span');
   const likeText = targetEl.querySelector('span.percent');
