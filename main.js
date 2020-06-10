@@ -39,11 +39,10 @@ const LikeViews = function (targetEl, { slug }) {
   }
 
   const updateCounts = () => {
-    const likeCount = counts[slug].likes;
+    const likePercentage = counts[slug].likes;
     const viewCount = counts[slug].views;
 
-    let percent = Math.round((likeCount / (viewCount || 1)) * 100);
-    updateLikeText(percent);
+    updateLikeText(likePercentage);
     updateViewText(viewCount);
 
     targetEl.style.display = 'block';
@@ -51,7 +50,7 @@ const LikeViews = function (targetEl, { slug }) {
   }
 
   const updateLikeText = (percent) => {
-    likeText.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><g fill="none" fill-rule="evenodd"><path d="M0 0h16v16H0z"/><path fill="#FFF" fill-rule="nonzero" d="M1 14h2V6H1v8zm14-7l-1-2h-4V2 1H9L5 5v8l1 1h6l1-1 2-5V7z"/></g></svg> ${percent}%`;
+    likeText.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><g fill="none" fill-rule="evenodd"><path d="M0 0h16v16H0z"/><path fill="#FFF" fill-rule="nonzero" d="M1 14h2V6H1v8zm14-7l-1-2h-4V2 1H9L5 5v8l1 1h6l1-1 2-5V7z"/></g></svg> ${percent}`;
   };
   const updateViewText = (views) => {
     viewText.innerHTML = `${views} views`
