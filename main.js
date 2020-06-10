@@ -85,11 +85,11 @@ const LikeViews = function (targetEl, { slug }) {
     fetch(`${api}/${slug}/like/`, { method: 'PUT' })
       .then(x => x.json())
       .then(({ data: { likes, views }}) => {
-        counts[slug] = {
-          likes,
-          views,
-        };
-        updateCounts();
+        // counts[slug] = {
+        //   likes,
+        //   views,
+        // };
+        // updateCounts();
       });
   }
 
