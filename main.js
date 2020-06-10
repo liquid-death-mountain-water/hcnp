@@ -21,8 +21,6 @@ const PlayerPreview = function (targetEl, props) {
   const defaultThumb = `https://ld-hcnp.s3.us-east-2.amazonaws.com/${id}/${id}_poster.png`;
   const hoverUrl = `https://ld-hcnp.s3.us-east-2.amazonaws.com/${id}/${id}_hover.jpg`;
 
-  // const elementWidth =
-
   let idx = -1;
   let ticker;
 
