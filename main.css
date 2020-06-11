@@ -125,6 +125,11 @@ main > h2 > span {
   text-align: center;
   color: #fd83fc;
 }
+@media all and (max-width: 720px) {
+  main > h2 > span {
+    padding: 0 5%;
+  }
+}
 
 .details {
   display: flex;
@@ -550,3 +555,4 @@ iframe {
 .percent {
   display: none !important;
 }
+
