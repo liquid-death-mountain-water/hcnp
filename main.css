@@ -546,3 +546,7 @@ iframe {
 .share:focus svg path {
   fill: #fd83fc !important;
 }
+
+.percent {
+  display: none !important;
+}
