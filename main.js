@@ -58,11 +58,10 @@ const LikeViews = function (targetEl, { slug }) {
 
   const registerView = () => {
     const key = `ld-${slug}-v`
-    if(sessionStorage.getItem(key) || localStorage.getItem(key)){
+    if(sessionStorage.getItem(key)){
       return;
     }
     sessionStorage.setItem(key, 'true');
-    localStorage.setItem(key, 'true');
 
     fetch(`${api}/${slug}/view/`, { method: 'PUT' })
       .then(x => x.json())
@@ -76,11 +75,10 @@ const LikeViews = function (targetEl, { slug }) {
   }
   const registerLike = () => {
     const key = `ld-${slug}-l`
-    if(sessionStorage.getItem(key) || localStorage.getItem(key)){
+    if(sessionStorage.getItem(key)){
       return;
     }
     sessionStorage.setItem(key, 'true');
-    localStorage.setItem(key, 'true');
 
     fetch(`${api}/${slug}/like/`, { method: 'PUT' })
       .then(x => x.json())
@@ -108,7 +106,7 @@ const LikeViews = function (targetEl, { slug }) {
   }
 
   const key = `ld-${slug}-l`;
-  if(sessionStorage.getItem(key) || localStorage.getItem(key)){
+  if(sessionStorage.getItem(key)){
     likeText.classList.add('active');
   }
 
